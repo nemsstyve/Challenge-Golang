@@ -3,9 +3,9 @@ package piscine
 func Index(s string, toFind string) int {
 	toFindCount := arrayCount(toFind)
 	secondIndex := 0
-	for _, j := range toFind {
+	for _, l := range toFind {
 		for i1, i2 := range s {
-			if i2 == j {
+			if i2 == l {
 				if toFindCount == 1 {
 					return i1
 				} else if toFindCount > 1 {
