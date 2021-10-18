@@ -6,7 +6,6 @@ func AlphaCount(str string) int {
 		if isAlpha(s) {
 			count++
 		}
-
 	}
 	return count
 }
