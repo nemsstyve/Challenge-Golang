@@ -21,5 +21,4 @@ func Sqrt(nb int) int {
 	} else {
 		return 0
 	}
-
 }
