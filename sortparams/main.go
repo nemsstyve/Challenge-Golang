@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	count := 0
 	for range os.Args {
 		count++
