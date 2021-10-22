@@ -32,6 +32,7 @@ func main() {
 		z01.PrintRune(10)
 	}
 }
+
 func ConvertToLetter(s string) rune {
 	numb := 0
 	for _, i := range s {
@@ -47,6 +48,7 @@ func ConvertToLetter(s string) rune {
 	}
 	return rune(numb)
 }
+
 func ToUpper(r rune) rune {
 	if r-32 < 65 {
 		return r
