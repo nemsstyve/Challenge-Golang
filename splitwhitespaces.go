@@ -1,7 +1,6 @@
 package piscine
 
 func SplitWhiteSpaces(str string) []string {
-
 	TextToString := ""
 	t := []string{}
 	for i, v := range str {
