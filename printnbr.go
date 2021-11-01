@@ -5,7 +5,6 @@ import (
 )
 
 func PrintNbr(n int) {
-
 	t := 1
 	if n < 0 {
 		t = -1
@@ -21,5 +20,4 @@ func PrintNbr(n int) {
 	} else {
 		z01.PrintRune('0')
 	}
-
 }
