@@ -18,6 +18,7 @@ func SplitWhiteSpaces(str string) []string {
 	}
 	return t
 }
+
 func lent2(d string) int {
 	inc := 0
 	for range d {
