@@ -20,7 +20,7 @@ func SplitWhiteSpaces(str string) []string {
 }
 func lent2(d string) int {
 	inc := 0
-	for _, _ = range d {
+	for range d {
 		inc++
 	}
 	return inc
