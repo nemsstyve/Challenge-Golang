@@ -8,5 +8,4 @@ import (
 func main() {
 	fmt.Println(piscine.IsPrintable("Hello"))
 	fmt.Println(piscine.IsPrintable("Hello\n"))
-
 }
