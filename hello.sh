@@ -1,1 +1,1 @@
-echo "hello SNEMATCHA"
+"hello SNEMATCHA"
