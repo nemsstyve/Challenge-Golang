@@ -1,66 +1,78 @@
 package piscine
 
-import (
-	"fmt"
-)
+import "github.com/01-edu/z01"
 
-func show(n int, table [9]int, tmax [9]int) {
-	i := 0
-	for i < n {
-		fmt.Print(table[i])
-		i++
-	}
-	if table[0] != tmax[0] {
-		fmt.Print(", ")
+func IntToString(num int) string {
+	if num == 0 {
+		return "0"
+	} else if num == 1 {
+		return "1"
+	} else if num == 2 {
+		return "2"
+	} else if num == 3 {
+		return "3"
+	} else if num == 4 {
+		return "4"
+	} else if num == 5 {
+		return "5"
+	} else if num == 6 {
+		return "6"
+	} else if num == 7 {
+		return "7"
+	} else if num == 8 {
+		return "8"
+	} else {
+		return "9"
 	}
 }
 
-func printComb1() {
-	table := [9]int{0}
-	tmax := [9]int{9}
-	for table[0] <= tmax[0] {
-		show(1, table, tmax)
-		table[0]++
+func itoa(num int) string {
+	var result string
+
+	if num == 0 {
+		return "0"
+	}
+	for num > 0 {
+		result = IntToString(num%10) + result
+		num /= 10
+	}
+	return result
+}
+
+func printString(str string) {
+	for _, c := range str {
+		z01.PrintRune(c)
+	}
+}
+
+func printComb(n int, prev int, result string, count *int) {
+	for i := 0; i < 10; i++ {
+		if prev < i {
+			if n == 1 {
+				if *count > 0 {
+					printString(", ")
+				}
+				printString(result + itoa(i))
+				*count++
+			} else {
+				printComb(n-1, i, result+itoa(i), count)
+			}
+		}
 	}
 }
 
 func PrintCombN(n int) {
-	table := [9]int{0, 1, 2, 3, 4, 5, 6, 7, 8}
-	tmax := [9]int{}
-
-	if n == 1 {
-		printComb1()
-	} else {
-		i := n - 1
-		j := 9
-		for i >= 0 {
-			tmax[i] = j
-			i--
-			j--
+	var count int = 0
+	for i := 0; i < 10; i++ {
+		if n > 1 {
+			printComb(n-1, i, itoa(i), &count)
+		} else {
+			if count > 0 {
+				printString(", ")
+			}
+			printString(itoa(i))
+			count++
 		}
-		i = n - 1
-		for table[0] < tmax[0] {
-			if table[i] != tmax[i] {
-				show(n, table, tmax)
-				table[i]++
-			}
-			if table[i] == tmax[i] {
-				if table[i-1] != tmax[i-1] {
-					show(n, table, tmax)
-					table[i-1]++
-					j = i
-					for j < n {
-						table[j] = table[j-1] + 1
-						j++
-					}
-					i = n - 1
-				}
-			}
-			for table[i] == tmax[i] && table[i-1] == tmax[i-1] && i > 1 {
-				i--
-			}
-		}
-		show(n, table, tmax)
 	}
-	fmt.Println()
+	printString("\n")
 }
