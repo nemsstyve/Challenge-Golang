@@ -13,5 +13,4 @@ func ListReverse(l *List) {
 	temp := l.Head
 	l.Head = l.Tail
 	l.Tail = temp
-
 }
