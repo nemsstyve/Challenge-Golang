@@ -5,14 +5,16 @@ import (
 	"os"
 )
 
-const Max = 9223372036854775807
-const Min = -9223372036854775808
+const (
+	Max = 9223372036854775807
+	Min = -9223372036854775808
+)
 
 func main() {
 	if argsValid(os.Args) == false {
 		return
 	}
-	var a, operator, b = Atoi(os.Args[1]), os.Args[2], Atoi(os.Args[3])
+	a, operator, b := Atoi(os.Args[1]), os.Args[2], Atoi(os.Args[3])
 	var result int
 	if operator == "/" && b == 0 {
 		fmt.Println("No division by 0")
@@ -80,8 +82,8 @@ func isOperator(operator string) bool {
 }
 
 func Atoi(s string) int {
-	var f = false
-	var signCount, str = 0, 0
+	f := false
+	signCount, str := 0, 0
 	for i, v := range s {
 		// 43 = '+', 45 = '-', 48 = '0', 57 = '9'
 		if v == 43 || v == 45 || v >= 48 && v <= 57 {
@@ -98,7 +100,7 @@ func Atoi(s string) int {
 				}
 				continue
 			}
-			var a = 0
+			a := 0
 			var j int32
 			for j = 49; j <= v; j++ {
 				a++
@@ -113,6 +115,7 @@ func Atoi(s string) int {
 	}
 	return str
 }
+
 func addition(a, b int) int {
 	if ((b > 0) && (a > (Max - b))) || ((b < 0) && (a < (Min - b))) {
 		return 0
