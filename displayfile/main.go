@@ -14,7 +14,7 @@ func main() {
 	}
 	if len(os.Args) > 2 {
 		fmt.Println("Too many arguments")
-		returnr
+		return
 	}
 	data, err := ioutil.ReadFile(fileName)
 	if err != nil {
