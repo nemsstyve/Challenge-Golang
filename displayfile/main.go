@@ -14,7 +14,6 @@ func main() {
 		fmt.Println("Too many arguments")
 	} else {
 		file, err := ioutil.ReadFile(args[0])
-
 		if err != nil {
 			fmt.Println(err)
 		}
