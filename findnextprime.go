@@ -5,5 +5,4 @@ func FindNextPrime(number int) int {
 		number++
 	}
 	return number
-
 }
