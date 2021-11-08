@@ -7,19 +7,17 @@ import (
 )
 
 func main() {
-	fileName := "quest8.txt"
-	if len(os.Args) < 2 {
+	args := os.Args[1:]
+	if 0 == len(args) {
 		fmt.Println("File name missing")
-		return
-	}
-	if len(os.Args) > 2 {
+	} else if len(args) >= 2 {
 		fmt.Println("Too many arguments")
-		return
+	} else {
+		file, err := ioutil.ReadFile(args[0])
+
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Print(string(file))
 	}
-	data, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println(string(data))
 }
