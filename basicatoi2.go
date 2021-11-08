@@ -8,6 +8,7 @@ func check(s string) bool {
 	}
 	return true
 }
+
 func BasicAtoi2(str string) int {
 	x := 0
 	if check(str) == true {
