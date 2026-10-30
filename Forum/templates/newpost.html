@@ -1,0 +1,87 @@
+{{define "newpost"}}
+<!DOCTYPE html>
+<html lang="FR">    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projet Forum</title>
+        <link rel="icon" href="/static/img/icon/forum.png">
+        <!-- fontstyle -->
+        <link rel="stylesheet" href="/static/css/newpost.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">        
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="leftnav">
+                <div id="forum_tittle">
+                    <a href="/index">Forum</a>
+                </div>
+            </div>
+            <div class="rightnav">
+                <div id="menu">
+                    <a class="UserName" id="UserName" href="/user"><img src="/static/img/icon/usericon.png" alt="iconuser"> {{.User.Username}}</a>
+                    <a href="/login" id="Connexion" class="Connexion">Connexion</a>
+                    <a href="/register" id="Inscription" class="Inscription">Inscription</a>
+                    <form method="post">
+                        <button class="Deconnexion" id="Deconnexion" name="Deconnexion" value="run">Deconnexion</a>
+                    </form>
+                </div>  
+            </div>
+        </nav>
+    </header>
+    <div class="new__post">
+        <div class="N-title flex padding">
+            <h1>Nouveau Topic</h1>
+        </div>
+        <p class="obligation">{{.Error}}</p>
+        <div class="NewpostForm flex padding">
+            <form method="post" enctype="multipart/form-data" id="form">
+                <div class="Titre_post">
+                    <label for="titre-sujet" id="titre-sujet">Titre du Sujet : </label>
+                    <br>
+                    <input type="text" id="Titre_sujet" name="Titre_sujet"required>
+                    <br>
+                </div>
+                <div class="categorie_newpost">
+                    <label for="categorie_newpost">Choissisez une catégorie : </label>
+                    <br>
+                    <select name="categorie" id="categorie">
+                        {{range .CategoryList}}
+                            <option value={{.CategoryName}}>{{.CategoryName}}</option>    
+                        {{end}}  
+                        
+                    </select>
+                </div>
+                
+                
+                <div class="text_area">
+                    <label for="message">Message : </label>
+                    <br>
+                    <textarea name="message_newpost" id="message_newpost" cols="30" rows="10" value="Ecrivez quelque chose ..." required></textarea>
+                </div>
+                <div class="inputfiles">
+                    <!-- <input type="hidden" name="MAX_FILE_SIZE" value="20000000" /> -->
+                    <input class="input file-input" type="file" name="file" multiple />
+                    
+                </div>
+                <div class="btn-newpost flex">
+                    <div>
+                        <button class="Newpost_submit" type="submit">Soumettre</button>
+                    </div>
+                    <div class="btnretour">
+                        <button href="/index" class="RETOUR">Retour</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="/static/js/newpost.js"></script>
+</html>
+{{end}}
+	

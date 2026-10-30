@@ -1,0 +1,102 @@
+{{define "admin"}}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projet Forum</title>
+        <link rel="icon" href="/static/img/icon/forum.png">
+        <!-- fontstyle -->
+        <link rel="stylesheet" href="/static/css/admin.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">        
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet">   
+    </head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div id="forum_tittle">
+                <a href="/index">Administrateur</a>
+            </div>
+        </nav>
+    </header>
+    <div class="M-Title flex">
+        <h2>Listes des utilisateurs : </h2> 
+    </div>
+    <div class="bg">
+        <form method="post" class="adminform">
+            <div class="carduser flex">
+                {{range .TabUser}}
+                    <div class="userinfo flex padding">
+                        <div class="left padding">
+                            <div class="img_user flex">
+                                <img src={{.Avatar}} alt="avatar">
+                            </div>
+                            <div class="role_user flex">
+                                <label for="Role"> Rôle : </label>
+                                <p>{{.Role}}</p>
+                            </div>
+                        </div>
+                        <div class="right padding">
+                            <div class="user_name flex">
+                                <label for="Username"> Pseudo : </label>
+                                <br>
+                                <p> {{.Username}}</p>             
+                            </div>
+                            <div class="user_email flex">
+                                <label for="Email"> E-mail : </label>
+                                <br>
+                                <p>{{.Email}}</p>
+                            </div>
+                            <div class="btnpromote flex padding">
+                                <button class="btnpromotion" type="submit" name="promote" value={{.ID}}>Promouvoir</button>
+                                <button class="btndemote" type="submit" name="demote" value={{.ID}}>Rétrograder</button>
+                            </div>
+                        </div>
+                    </div>
+                {{end}}
+            </div>
+            <br>
+            <div class="M-Title flex">
+                <h2>Listes des catégories : </h2> 
+            </div>
+            <div class="bg2">
+                <div style="height: 23vh; overflow-y: scroll;">
+                    {{range .CategoryList}}
+                        <div class="category flex padding">
+                            <div class="categoname">
+                                <p>#{{.CategoryName}}</p>
+                            </div>
+                            <div class="supcatego">
+                                <button class="btn-sup" type="submit" name="deletecategory" value={{.CategoryID}}><img style="width: 25px;"src="/static/img/icon/croix.png" alt="croix"></button>
+                            </div>
+                        </div>
+                    {{end}}
+                </div>
+            </div>
+            <div class="cateadd flex">
+                <div class="addcatego">
+                    <div class="label">
+                        <br>
+                        <label class="flex"for="username"> Ajouter une catégorie : </label>
+                        <br>
+                        <div class="addinput flex">
+                            <input type="text" placeholder="Entrez une nouvelle catégorie" name="category">
+                            <button type="submit" class="add flex">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="flex" style="margin-top: 3vh; margin-bottom: 2vh;">
+        <div class="returnbtn flex">
+            <a class="flex" href="/index">Retour</a>
+        </div>
+    </div>
+</body>
+</html>
+{{end}}

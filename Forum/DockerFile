@@ -1,0 +1,27 @@
+# The base go-image
+FROM golang:1.16
+
+# Docker image description
+LABEL name="Forum"
+LABEL description="Forum for a school project"
+LABEL authors="StyveNematcha, MouhamedDaoudi, YacineCharil"
+LABEL release-date="12.06.2022"
+
+# Create a directory for the app
+RUN mkdir /Forum
+
+# Add all files into Forum app 
+ADD . /Forum
+ 
+# Set working directory
+WORKDIR /Forum
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+RUN go build -o main .
+ 
+# Run the server executable
+CMD [ "/Forum/main" ]
+

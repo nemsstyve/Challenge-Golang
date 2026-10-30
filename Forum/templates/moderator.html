@@ -1,0 +1,81 @@
+{{define "moderator"}}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projet Forum</title>
+        <link rel="icon" href="/static/img/icon/forum.png">
+        <!-- fontstyle -->
+        <link rel="stylesheet" href="/static/css/moderator.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">        
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet">   
+    </head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div id="forum_tittle">
+                <a href="/index">Modérateur</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="M-Title flex">
+        <h2>Listes des postes à valider : </h2> 
+    </div>
+        <div class="bg">
+            {{range .TabList}}
+                <div class="card__post" >
+                    <div class="cardPost">
+                        <div class="avatar">
+                            <div class="left-side">
+                                <div class="img_avatar">
+                                    <img src={{.UserAvatar}} alt="avatar">
+                                </div>
+                                <div class="user_post">
+                                    <p>{{.UserName}}</p>
+                                </div>
+                            </div>
+                            <div class="date_heure_post">
+                                <p>{{.PostDateString}}</p>
+                            </div>
+                        </div>
+                        <div class="Poste">
+                            <div class="title_post">
+                                <h2>{{.PostName}}</h2>
+                                <br>
+                            </div>
+                            <div class="post_">
+                                <p>{{.PostDescription}}</p>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="categorie_post">
+                            <p class="C-post">#{{.PostCategory}}</p>
+                            <br>
+                        </div>
+                        {{.Validated}}
+                        <form method="post" class="formcheck flex">
+                            <div>
+                                <button class="btn-sup" id="btn-sup" type="submit" name="uploadpost" value={{.PostID}}><img style="width: 30px;"src="/static/img/icon/check.png" alt="validé"></button>
+                            </div>
+                            <div>
+                                <button class="btn-sup" id="btn-sup" type="submit" name="deletepost" value={{.PostID}}><img style="width: 25px;"src="/static/img/icon/croix.png" alt="validé"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {{end}}
+        </div>
+        <div class="flex" style="margin-top: 3vh; margin-bottom: 2vh;">
+            <div class="returnbtn flex">
+                <a class="flex" href="/index">Retour</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{{end}}

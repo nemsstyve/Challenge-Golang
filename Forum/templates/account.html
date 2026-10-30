@@ -1,0 +1,211 @@
+{{define "user"}}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projet Forum</title>
+        <link rel="icon" href="/static/img/icon/forum.png">
+        <!-- fontstyle -->
+        <link rel="stylesheet" href="/static/css/account.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">        
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="leftnav">
+                <div id="forum_tittle">
+                    <a href="/index">Forum</a>
+                </div>
+            </div>
+            <div class="rightnav">
+                <div id="menu">
+                    <a class="UserName" id="UserName" href="/user"><img src="/static/img/icon/usericon.png" alt="iconuser"> {{.Username}}</a>
+                    <a href="/login" id="Connexion" class="Connexion">Connexion</a>
+                    <a href="/register" id="Inscription" class="Inscription">Inscription</a>
+                    <form method="post">
+                        <button class="Deconnexion" id="Deconnexion" name="Deconnexion" value="run">Deconnexion</a>
+                    </form>
+                </div>  
+            </div>
+        </nav>
+    </header>
+
+    
+    <div class="main_content">
+        <div class="userinfo flex padding">
+            <div class="left padding">
+                <div class="img_user flex">
+                    <img src={{.Avatar}} alt="avatar">
+                </div>
+                <div class="role_user flex">
+                    <label for="Role"> Rôle : </label>
+                    <p>{{.Role}}</p>
+                </div>
+            </div>
+            <div class="right padding">
+                <div class="info flex">
+                    <h1>Information</h1>
+                </div>
+                <div class="user_name flex">
+                    <label for="Username"> Pseudo : </label>
+                    <br>
+                    <p> {{.Username}}</p>             
+                </div>
+                <div class="user_email flex">
+                    <label for="Email"> E-mail : </label>
+                    <br>
+                    <p>{{.Email}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="listepost-T flex">
+            <h1>Vos postes</h1>
+        </div>
+        {{range .PostList}}
+        <!-- posts user -->
+            <div class="postinfo">
+                <form method="post" class="">
+                    <a href="{{.PostURL}}" class="link flex">
+                        <div class="post_de_user padding">
+                            <div class="nom_post flex margin3vw">
+                                <div class="flex">
+                                    <label for="T-post"> Titre : </label>
+                                    <p>{{.PostName}}</p>
+                                </div>
+                                <div class="date_post">
+                                    <p>{{.PostDateString}}</p>
+                                </div>
+                            </div>
+                            <div class="post_content margin3vw">
+                                <label for="C-post"> Poste : </label>
+                                <p>{{.PostDescription}}</p>
+                            </div>
+                            <div class="post_categorie flex margin3vw">
+                                <div class="Catego">
+                                    <p>#{{.PostCategory}}</p>
+                                </div>
+                                <div class="like_dislike flex">
+                                    <div class="like">
+                                        <span><img src="/static/img/icon/heart.png"> {{.PostLikes}}</span>
+                                    </div>
+                                    <div class="dislike">
+                                        <span><img src="/static/img/icon/broken-heart.png"> {{.PostDislikes}}</span>
+                                    </div>
+                                </div>
+                                <div class="suppost">
+                                    <button class="btn-sup" type="submit" name="delete_post" value={{.PostID}}><img src="/static/img/icon/supprimer.png" alt="supprimer"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="listeCom-P flex">
+                        <h2>Les commentaires</h2>
+                    </div>
+                    <!-- les commentaires -->
+                    <div class="commentaire">
+                        {{range .TabComment}}
+                            <div class="Com flex">
+                                <div class="post__comment padding">
+                                    <div class="post_comment_descrip flex">
+                                        <p>{{.CommentMessage}}</p>
+                                    </div>
+                                    <div class="date_ld_sup flex margin3vw">
+                                        <div class="date_comment">
+                                            <p>{{.CommentDateString}}</p>
+                                        </div>
+                                        <div class="like_dislike flex">
+                                            <div class="like">
+                                                <span><img src="/static/img/icon/heart.png"> {{.CommentLikes}}</span>
+                                            </div>
+                                            <div class="dislike">
+                                                <span><img src="/static/img/icon/broken-heart.png"> {{.CommentDislikes}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="suppost">
+                                            <button class="btn-sup"type="submit" name="delete_comment" value={{.CommentID}}><img src="/static/img/icon/supprimer.png" alt="supprimer"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{end}}
+                    </div>
+                </form>
+            </div>
+        {{end}}
+
+        <div class="listepost-T flex margin3vw">
+            <h1>Vos Likes et Dislikes</h1>
+        </div>
+        <!-- likeetdislikespost -->
+        <div class="Post_liked_disliked flex padding margin3vw">
+            <div class="Post_liked">
+                <div class="T-PL flex">
+                    <h2>Postes que vous aimez : </h2>
+                </div>
+                {{range .PostLiked}}
+                    <a href="{{.PostURL}}" class="link flex">
+                        <div class="Post-liked-p padding">
+                            <div class="nom_post flex margin3vw">
+                                <div class="flex">
+                                    <label for="T-post"> Titre : </label>
+                                    <p>{{.PostName}}</p>
+                                </div>
+                                <div class="date_post">
+                                    <p>{{.PostDateString}}</p>
+                                </div>
+                            </div>
+                            <div class="post_content margin3vw">
+                                <label for="C-post"> Poste : </label>
+                                <p>{{.PostDescription}}</p>
+                            </div>
+                            <div class="Catego">
+                                <p>#{{.PostCategory}}</p>
+                            </div>
+                        </div>
+                    </a>
+                {{end}}
+                
+            </div>
+            <div class="Post_disliked">
+                <div class="T-PL flex">
+                    <h2>Postes que vous n'aimez pas : </h2>
+                </div>
+                {{range .PostDisliked}}
+                    <a href="{{.PostURL}}" class="link flex">     
+                        <div class="Post-liked-p padding">
+                            <div class="nom_post flex margin3vw">
+                                <div class="flex">
+                                    <label for="T-post"> Titre : </label>
+                                    <p>{{.PostName}}</p>
+                                </div>
+                                <div class="date_post">
+                                    <p>{{.PostDateString}}</p>
+                                </div>
+                            </div>
+                            <div class="post_content margin3vw">
+                                <label for="C-post"> Poste : </label>
+                                <p>{{.PostDescription}}</p>
+                            </div>
+                            <div class="Catego">
+                                <p>#{{.PostCategory}}</p>
+                            </div>
+                        </div>            
+                    </a>
+                {{end}}
+            </div>
+        </div> 
+        
+        
+    </div>
+    
+
+
+</body>
+<script src="/static/js/user.js"></script>
+</html>
+{{end}}

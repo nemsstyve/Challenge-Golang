@@ -1,0 +1,183 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="FR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Forum</title>
+    <link rel="icon" href="/static/img/icon/forum.png">
+    <!-- fontstyle -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+
+<body>
+    <header>
+        <nav class="firstblock">
+            <div class="forum_title">
+                <div class="leftnav">
+                    <img src="/static/img/icon/forum.png" alt="ForumIcon">
+                    <a href="/index">Forum</a>
+                </div>
+                <div class="rightnav">
+                    <div id="menu">
+                        <a class="UserName" id="UserName" href="/user"><img src="/static/img/icon/usericon.png" alt="iconuser"> {{.User.Username}}</a>
+                        <a href="/login" id="Connexion" class="Connexion">Connexion</a>
+                        <a href="/register" id="Inscription" class="Inscription">Inscription</a>
+                        <form method="post">
+                            <button class="Deconnexion" id="Deconnexion" name="Deconnexion" value="run">Deconnexion</a>
+                        </form>
+                    </div>  
+                </div>
+            </div>   
+            <div class="Middle-title">
+                <div class="Middle-text">
+                    <div class="M-title">
+                        <p>Bienvenue</p>
+                    </div>
+                    <div class="M-content">
+                        <p>Forum est une plateforme de discussion sur différents sujets.
+                        <p>Vous trouverez ici les derniers sujets et les catégories qui vous interessent !</p>
+                        <br>
+                        <p>Lancez un sujet de discussion ici ! </p>
+                        <br>
+                    </div>
+                </div>
+                <div class="Middle-link">
+                    <div><img src="/static/img/icon/pen.png" alt="iconpost"></div>
+                    <div><a href="/newpost">New Post</a></div>
+                </div>
+            </div>
+        </nav> 
+    </header>
+    
+    <div class="main_content">
+        <!-- liste categories -->
+        <div class="content_categories">
+            <div class="catego_title">
+                <h1>Catégories</h1>
+            </div>
+            <div class="card-catego">
+                <form method="post" class="card-catego">
+                    <div class="card_categorie" >
+                        <button class="Categorie" name="Categorie" value="">Tout</button>
+                            <p>{{.NbPost}}</p>
+                    </div>
+                    {{range .CategoryList}}
+                    <div class="card_categorie" id="{{.CategoryID}}">
+                        <button class="Categorie" name="Categorie" value="{{.CategoryName}}">{{.CategoryName}}</button>
+                        <p>{{.CategoryNumber}}</p>
+                    </div>
+                    {{end}}
+                    </form>
+                </div>
+            </div>
+
+            <!-- Posts -->
+            <div class="thirdblock">
+                <div class="T-Post">
+                    <div class="title-post">
+                        <h1>Les Topics</h1>
+                        <br>
+                        <p>Vous trouverez ici la liste de l'ensemble des sujets du Forum ! </p>
+                        <p>Cliquez sur le poste qui vous interesse pour avoir accès à la discussion !</p>
+                        <br>
+                        <p>Affinez votre recherche avec des filtres ! </p>
+                        <button id="btnfilter">Filtrer</button>
+                        <div class="filterblock">
+                            <div id="filtrer">
+                                <form class="form-filter" method="POST" action="/search">
+                                    <div class="btn-filter">
+                                        <label for="F-title" class="F-title"> Filtrer par : </label>
+                                        <br>
+                                        <div class="F-grid">
+                                            <button class="btn-filter_name" type="submit" name="Name" value="run">Titre</button>
+                                            <button class="btn-filter_catego" type="submit" name="Categories" value="run">Categories</button>
+                                            <button class="btn-filter_post" type="submit" name="CreatedPosts" value="run">Date de création</button>
+                                            <button class="btn-filter_like" type="submit" name="LikedPosts" value="run">Nombre de Like</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{range .TabList}}
+                <div class="card__post" onclick="location.href='{{.PostURL}}';" style="cursor:pointer;">
+                    <div class="cardPost">
+                        <div class="avatar">
+                            <div class="left-side">
+                                <div class="img_avatar">
+                                    <img src={{.UserAvatar}} alt="avatar">
+                                </div>
+                                <div class="user_post">
+                                    <p>{{.UserName}}</p>
+                                </div>
+                            </div>
+                            <div class="date_heure_post">
+                                <p>{{.PostDateString}}</p>
+                            </div>
+                        </div>
+                        <div class="Poste">
+                            <div class="title_post">
+                                <h2>{{.PostName}}</h2>
+                                <br>
+                            </div>
+                            <div class="post_">
+                                <p>{{.PostDescription}}</p>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="categorie_post">
+                            <p class="C-post">#{{.PostCategory}}</p>
+                            <br>
+                        </div>
+                        <div class="nb_like_post">
+                            <div class="coeur">
+                                <img src="../static/img/icon/heart.png" alt="image pouce/coeur">
+                                <span class="nbcoeur">{{.PostLikes}}</span>
+                            </div>
+                            <div class="com">
+                                <img src="../static/img/icon/commentaire.png" alt="image commentaire">
+                                <span class="nbcom">{{.NbComment}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {{end}}
+            </div>
+            </div>
+            <footer class="footer" id="contact">
+                <div class="containerbottom">
+                    <div class="Admin_modo flex">
+                        <a class="ADMIN" href="/admin">Admin</a>
+                        <a class="MODO" href="/moderator">Modérateur</a>
+                    </div>
+                    <div class="T-link flex">
+                        <a class="footergithub" href="https://github.com/nemsstyve/Forum" target="_blank" title="Forum Github"><img src="/static/img/icon/github.png" alt="Github"></a>
+                    </div>
+                    <div class="author padding flex">
+                        <div class="T-authors">
+                            <div class="teams-forum-t flex">
+                                <p>Créateurs du Forum :</p>
+                            </div>
+                            <div class="teams-forum flex">
+                                <a class="footerlink" href="https://github.com/mouhameddaoudi" target="_blank"> Mouhamed DAOUDI</a>
+                                <a class="footerlink" href="https://github.com/nemsstyve" target="_blank"> Styve NEMATCHA </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+</body>
+<script src="/static/js/index.js"></script>
+
+</html>
+
+{{end}}
